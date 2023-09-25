@@ -3,8 +3,9 @@ const cubeService = require('../services/cubeService.js');
 
 //When the user is on the home page '/' we render the index.hbs from the views
 router.get('/', (req, res) => {
-  const cubes = cubeService.getAll();
-  res.render('index', { cubes });
+  const { search, from, to } = req.query;
+  const cubes = cubeService.getAll(search, from, to);
+  res.render('index', { cubes, search, from, to });
 });
 
 //When the user is on the home page and clicks on About we render the about.hbs from the views

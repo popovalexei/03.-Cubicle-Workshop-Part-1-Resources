@@ -1,5 +1,6 @@
 const uniqid = require('uniqid');
 
+// cubes database
 const cubes = [
   {
     id: '1cww4112qplmyzvqmi',
@@ -25,6 +26,7 @@ const cubes = [
   },
 ];
 
+// cube service functionality
 exports.create = (cubeData) => {
   const newCube = {
     id: uniqid(),
@@ -32,10 +34,30 @@ exports.create = (cubeData) => {
   };
 
   cubes.push(newCube);
-
   return newCube;
 };
 
-exports.getAll = () => {
-  return [...cubes]; // this will return a copy of cubes. You can use also slice()
+exports.getAll = (search, from, to) => {
+  let filterCubes = [...cubes];
+  if (search) {
+    filterCubes = filterCubes.filter((cube) =>
+      cube.name.toLowerCase().includes(search.toLowerCase())
+    );
+  }
+  if (from) {
+    filterCubes = filterCubes.filter(
+      (cube) => cube.difficultyLevel >= Number(from)
+    );
+  }
+  if (to) {
+    filterCubes = filterCubes.filter(
+      (cube) => cube.difficultyLevel <= Number(to)
+    );
+  }
+
+  return filterCubes;
+};
+
+exports.getSingleCube = (id) => {
+  return cubes.find((cube) => cube.id === id);
 };
