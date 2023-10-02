@@ -1,5 +1,6 @@
 const router = require('express').Router();
 const cubeService = require('../services/cubeService.js');
+const accessoryService = require('../services/accessoryService.js');
 
 //When the user is on the home page and clicks on Add a Cube we render the create.hbs from the views
 router.get('/create', (req, res) => {
@@ -27,6 +28,15 @@ router.get('/:cubeId/details', async (req, res) => {
     return;
   }
   res.render('cube/details', { cube });
+});
+
+router.get('/:cubeId/attach-accessory', async (req, res) => {
+  const { cubeId } = req.params;
+  const cube = await cubeService.getSingleCube(cubeId).lean();
+  const accessories = await accessoryService.getAll().lean();
+  const hasAccessories = accessories.length > 0;
+
+  res.render('accessories/attach', { cube, accessories, hasAccessories });
 });
 
 module.exports = router;
