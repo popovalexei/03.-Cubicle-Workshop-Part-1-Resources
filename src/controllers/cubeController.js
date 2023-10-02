@@ -3,7 +3,7 @@ const cubeService = require('../services/cubeService.js');
 
 //When the user is on the home page and clicks on Add a Cube we render the create.hbs from the views
 router.get('/create', (req, res) => {
-  res.render('create');
+  res.render('cube/create');
 });
 
 router.post('/create', async (req, res) => {
@@ -26,7 +26,7 @@ router.get('/:cubeId/details', async (req, res) => {
     res.redirect('/404');
     return;
   }
-  res.render('details', { cube });
+  res.render('cube/details', { cube });
 });
 
 module.exports = router;
