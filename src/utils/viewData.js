@@ -1,5 +1,6 @@
 exports.difficultyLevelOptionsViewData = (difficultyLevel) => {
   const titles = [
+    'Very Easy',
     'Easy',
     'Medium (Standard 3x3)',
     'Intermediate',
