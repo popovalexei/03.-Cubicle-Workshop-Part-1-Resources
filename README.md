@@ -1,1 +1,1 @@
-SoftUni Workshop Express and Templating!
+SoftUni Workshop - Node.JS, Express, MongoDB, Mongoose, Handlebars.
