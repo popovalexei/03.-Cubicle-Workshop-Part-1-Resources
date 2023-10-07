@@ -2,6 +2,7 @@ const router = require('express').Router();
 const cubeService = require('../services/cubeService.js');
 const accessoryService = require('../services/accessoryService.js');
 const { difficultyLevelOptionsViewData } = require('../utils/viewData.js');
+// const { isAuth } = require('../middlewares/authMiddleware.js');
 
 //When the user is on the home page and clicks on Add a Cube we render the create.hbs from the views
 //!Create
@@ -64,6 +65,12 @@ router.post('/:cubeId/attach-accessory', async (req, res) => {
 router.get('/:cubeId/edit', async (req, res) => {
   const { cubeId } = req.params;
   const cube = await cubeService.getSingleCube(cubeId).lean();
+
+  //This should be implemented everywhere for safetynes!
+  if (cube.owner?.toString() !== req.user._id) {
+    return res.redirect('/404');
+  }
+
   const options = difficultyLevelOptionsViewData(cube.difficultyLevel);
 
   res.render('cube/edit', { cube, options });
