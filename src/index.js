@@ -7,6 +7,7 @@ const dbConnect = require('./config/dbConfig.js');
 
 const { PORT } = require('./constants.js');
 const routes = require('./router.js');
+const errorHandler = require('./middlewares/errorHandlerMiddleware.js');
 
 // Local variables
 const app = express();
@@ -22,6 +23,7 @@ dbConnect()
 
 // Routing
 app.use(routes);
+app.use(errorHandler);
 
 app.listen(PORT, () => {
   console.log(`Server is running on port: ${PORT}`);
