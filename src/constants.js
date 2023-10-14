@@ -5,5 +5,3 @@ const constants = {
 };
 
 module.exports = constants;
-
-//testtest
